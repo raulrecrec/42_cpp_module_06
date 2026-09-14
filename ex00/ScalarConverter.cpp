@@ -6,7 +6,7 @@
 /*   By: rexposit <rexposit@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 12:06:08 by rexposit          #+#    #+#             */
-/*   Updated: 2026/09/14 19:46:27 by rexposit         ###   ########.fr       */
+/*   Updated: 2026/09/14 19:56:45 by rexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,9 @@ void	ScalarConverter::printFromDouble(double literal)
 	{
 		if (literal >= 0 && literal <= 127)
 		{
-			char c = static_cast<char>(literal);
+			char c;
+
+			c = static_cast<char>(literal);
 			if (std::isprint(c))
 				std::cout << "char: '" << c << "'" << std::endl;
 			else
@@ -304,6 +306,7 @@ void	ScalarConverter::printFromDouble(double literal)
 	{
 		std::cout << "float: nanf" << std::endl;
 		std::cout << "double: nan" << std::endl;
+		return ;
 	}
 	else if (std::isinf(literal))
 	{
@@ -317,18 +320,38 @@ void	ScalarConverter::printFromDouble(double literal)
 			std::cout << "float: +inff" << std::endl;
 			std::cout << "double: +inf" << std::endl;
 		}
+		return ;
+	}
+
+	if (literal >= -FLT_MAX && literal <= FLT_MAX)
+	{
+		float	floatValue;
+
+		floatValue = static_cast<float>(literal);
+
+		if (std::floor(floatValue) == floatValue)
+			std::cout << std::fixed << std::setprecision(1);
+		else
+		{
+			std::cout.unsetf(std::ios::floatfield);
+			std::cout << std::setprecision(
+				std::numeric_limits<float>::digits10 + 1);
+		}
+		std::cout << "float: " << floatValue << "f" << std::endl;
 	}
 	else
-	{
+		std::cout << "float: impossible" << std::endl;
+
+	if (std::floor(literal) == literal)
 		std::cout << std::fixed << std::setprecision(1);
-
-		if (literal >= -FLT_MAX && literal <= FLT_MAX)
-			std::cout << "float: " << static_cast<float>(literal) << "f" << std::endl;
-		else
-			std::cout << "float: impossible" << std::endl;
-
-		std::cout << "double: " << literal << std::endl;
+	else
+	{
+		std::cout.unsetf(std::ios::floatfield);
+		std::cout << std::setprecision(
+			std::numeric_limits<double>::digits10 + 1);
 	}
+
+	std::cout << "double: " << literal << std::endl;
 }
 
 void	ScalarConverter::printImpossible()
