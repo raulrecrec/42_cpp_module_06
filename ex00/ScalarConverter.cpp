@@ -6,7 +6,7 @@
 /*   By: rexposit <rexposit@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 12:06:08 by rexposit          #+#    #+#             */
-/*   Updated: 2026/07/30 00:09:10 by rexposit         ###   ########.fr       */
+/*   Updated: 2026/09/14 19:46:27 by rexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <cfloat>
 #include <iostream>
 #include <climits>
+#include <limits>
 #include <cstdlib>
 #include <cerrno>
 #include <iomanip>
@@ -239,8 +240,36 @@ void	ScalarConverter::printFromFloat(float literal)
 		else
 			std::cout << "int: impossible" << std::endl;
 	}
-	
-	std::cout << std::fixed << std::setprecision(1);
+
+	if (std::isnan(literal))
+	{
+		std::cout << "float: nanf" << std::endl;
+		std::cout << "double: nan" << std::endl;
+		return ;
+	}
+	else if (std::isinf(literal))
+	{
+		if (literal < 0)
+		{
+			std::cout << "float: -inff" << std::endl;
+			std::cout << "double: -inf" << std::endl;
+		}
+		else
+		{
+			std::cout << "float: +inff" << std::endl;
+			std::cout << "double: +inf" << std::endl;
+		}
+		return ;
+	}
+
+	if (std::floor(literal) == literal)
+		std::cout << std::fixed << std::setprecision(1);
+	else
+	{
+		std::cout.unsetf(std::ios::floatfield);
+		std::cout << std::setprecision(std::numeric_limits<float>::digits10 + 1);
+	}
+
 	std::cout << "float: " << literal << "f" << std::endl;
 	std::cout << "double: " << static_cast<double>(literal) << std::endl;
 }
