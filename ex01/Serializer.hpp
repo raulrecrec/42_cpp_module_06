@@ -6,7 +6,7 @@
 /*   By: rexposit <rexposit@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/29 19:00:52 by rexposit          #+#    #+#             */
-/*   Updated: 2026/09/29 19:12:57 by rexposit         ###   ########.fr       */
+/*   Updated: 2026/09/29 20:18:33 by rexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdint.h>
 
-struct Data
+struct	Data
 {
 	int	value;
 };
