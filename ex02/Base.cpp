@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Base.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rexposit <rexposit@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: rexposit <rexposit@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/29 20:14:38 by rexposit          #+#    #+#             */
-/*   Updated: 2026/09/29 20:53:46 by rexposit         ###   ########.fr       */
+/*   Updated: 2026/10/01 12:36:33 by rexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Base.hpp"
 #include <cstdlib>
 #include <iostream>
-#include <typeinfo>
 
 Base::~Base()
 {
@@ -63,31 +62,31 @@ void	identify(Base &p)
 
 	try
 	{
-		dynamic_cast<A &>(p);
+		(void)dynamic_cast<A &>(p);
 		std::cout << "A" << std::endl;
 		return ;
 	}
-	catch (const std::bad_cast &e)
+	catch (...)
 	{
 	}
 	
 	try
 	{
-		dynamic_cast<B &>(p);
+		(void)dynamic_cast<B &>(p);
 		std::cout << "B" << std::endl;
 		return ;
 	}
-	catch (const std::bad_cast &e)
+	catch (...)
 	{
 	}
 
 	try
 	{
-		dynamic_cast<C &>(p);
+		(void)dynamic_cast<C &>(p);
 		std::cout << "C" << std::endl;
 		return ;
 	}
-	catch (const std::bad_cast &e)
+	catch (...)
 	{
 	}
 
